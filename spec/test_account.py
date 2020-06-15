@@ -18,10 +18,11 @@ class TestAccount(TestCase):
         self.assertEqual(account.transactions[0], transaction)
     
     def test_execute_multiple_transactions(self):
-        account = Account(0)
-        account.transact(200)
-        account.transact(-50)
-        self.assertEqual(len(account.transactions), 2)
+        positive_transaction = mock.Mock()
+        negative_transaction = mock.Mock()
+        self.account.transact(positive_transaction)
+        self.account.transact(negative_transaction)
+        self.assertEqual(len(self.account.transactions), 2)
     
     def test_print_zero_line_statement(self):
         """
