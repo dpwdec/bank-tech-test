@@ -19,3 +19,13 @@ class TestTransaction(TestCase):
         transaction = Transaction(200, date_object)
         transaction.get_formatted_date()
         transaction.date.strftime.assert_called_with("%d/%m/%Y")
+    
+    def test_is_debit_true(self):
+        date_object = mock.Mock()
+        transaction = Transaction(200, date_object)
+        self.assertTrue(transaction.is_debit())
+    
+    def test_is_debite_false(self):
+        date_object = mock.Mock()
+        transaction = Transaction(-200, date_object)
+        self.assertFalse(transaction.is_debit())

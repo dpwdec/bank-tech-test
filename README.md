@@ -38,3 +38,6 @@ How should we model the clients interaction with the `Account` object when makin
 ## Mocking
 
 Should I be mocking the `date` part of my transaction
+
+At the moment my `account` object prints a statement and when I say
+`transact` it takes a transaction and creates a new transaction object with the time with `date.now`
