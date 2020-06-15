@@ -11,4 +11,5 @@ class Account():
         self.transactions.append(amount)
     
     def print_statement(self):
-        return "date       || credit  || debit  || balance"
+        statement = "date       || credit  || debit  || balance"
+        return statement
