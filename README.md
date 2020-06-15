@@ -34,3 +34,7 @@ How should we model the clients interaction with the `Account` object when makin
 | Transaction | #type |
 | | #amount |
 | | #date |
+
+## Mocking
+
+Should I be mocking the `date` part of my transaction
