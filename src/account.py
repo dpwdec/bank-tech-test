@@ -7,8 +7,8 @@ class Account():
     def current_balance(self):
         return 0
     
-    def transact(self, amount):
-        self.transactions.append(amount)
+    def transact(self, transaction):
+        self.transactions.append(transaction)
     
     def print_statement(self):
         statement = "date       || credit  || debit  || balance"

@@ -1,11 +1,11 @@
 from unittest import TestCase
+from unittest import mock
 from src.account import Account
 
 class TestAccount(TestCase):
 
-    def test_returns_balance(self):
-        account = Account(0)
-        self.assertEqual(account.current_balance(), 0)
+    def setUp(self):
+        self.account = Account(0)
 
     def test_has_list_of_transactions(self):
         account = Account(0)
@@ -13,8 +13,9 @@ class TestAccount(TestCase):
 
     def test_execute_single_transaction(self):
         account = Account(0)
-        account.transact(200)
-        self.assertEqual(account.transactions[0], 200)
+        transaction = mock.Mock()
+        account.transact(transaction)
+        self.assertEqual(account.transactions[0], transaction)
     
     def test_execute_multiple_transactions(self):
         account = Account(0)
@@ -39,3 +40,7 @@ class TestAccount(TestCase):
         account = Account(0)
         statement =  "date       || credit  || debit  || balance\n14/01/2012 ||         || 200.00 || 0.00"
         self.assertEqual(account.print_statement(), statement)
+
+    def test_returns_balance(self):
+        account = Account(0)
+        self.assertEqual(account.current_balance(), 0)
