@@ -32,15 +32,20 @@ class TestAccount(TestCase):
         account = Account(0)
         self.assertEqual(account.print_statement(), "date       || credit  || debit  || balance")
     
-    def _print_one_line_statement(self):
+    def test_print_one_line_statement(self):
         """
         If transactions is contains one transaction for 200
         date       || credit  || debit  || balance
         14/01/2012 ||         || 200.00 || 0.00
         """
-        account = Account(0)
         statement =  "date       || credit  || debit  || balance\n14/01/2012 ||         || 200.00 || 0.00"
-        self.assertEqual(account.print_statement(), statement)
+        positive_transaction = mock.Mock()
+        positive_transaction.get_formatted_date.return_value = "14/01/2012"
+        positive_transaction.is_debit.return_value = True
+        positive_transaction.transaction_value = 200
+        #self.assertEqual(positive_transaction.transaction_value, 200)
+        self.account.transact(positive_transaction)
+        self.assertEqual(self.account.print_statement(), statement)
 
     def test_returns_balance(self):
         account = Account(0)
