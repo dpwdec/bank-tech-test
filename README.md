@@ -9,12 +9,25 @@ date       || credit  || debit  || balance
 10/01/2012 || 1000.00 ||        || 1000.00
 ```
 
+## Interaction
+
+How should we model the clients interaction with the `Account` object when making deposits and withdrawals?
+- just directly pass in the amount to deposit:
+  `account_object.deposit(200)`
+- pass in a `Transaction` type object that records the time of the deposit or withdrawal:
+  ```
+  transaction_object = Transactio(Date, 200)
+  account_object.transaction(transaction_object)
+  ```
+
 ## Objects
 
 | Object | Message |
 | --- | --- |
-| Account | #transaction |
+| Account | #transactions |
+| | #transaction(amount) |
 | | #current_balance |
+| | #print_statement |
 
 | Object | Message |
 | --- | --- |
