@@ -1,8 +1,10 @@
+import datetime
+
 class Transaction():
     
-    def __init__(self, value, date):
+    def __init__(self, value, date=datetime.datetime.now()):
         self.value = value
         self.date = date
 
     def get_formatted_date(self):
-        self.date.strftime("%d/%m/%Y")
+        return self.date.strftime("%d/%m/%Y")

@@ -9,3 +9,6 @@ class Account():
     
     def transact(self, amount):
         self.transactions.append(amount)
+    
+    def print_statement(self):
+        return "date       || credit  || debit  || balance"
