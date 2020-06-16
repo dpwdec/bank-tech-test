@@ -5,32 +5,34 @@ from src.account import Account
 class TestAccount(TestCase):
 
     def setUp(self):
-        self.account = Account(0)
+        transaction_object = mock.Mock()
+        TransactionClass = mock.Mock()
+        TransactionClass.return_value = transaction_object
+        self.account = Account(0, TransactionClass)
 
-    def test_has_list_of_transactions(self):
-        account = Account(0)
-        self.assertEqual(account.transactions, [])
+    def _has_list_of_transactions(self):
+        pass
+        #account = Account(0)
+        #self.assertEqual(account.transactions, [])
 
     def test_execute_single_transaction(self):
-        account = Account(0)
-        transaction = mock.Mock()
-        account.transact(transaction)
-        self.assertEqual(account.transactions[0], transaction)
+        self.account.transact(200)
+        self.assertEqual(len(self.account.transactions), 1)
+        self.assertIsInstance(self.account.transactions[0], mock.Mock)
     
     def test_execute_multiple_transactions(self):
-        positive_transaction = mock.Mock()
-        negative_transaction = mock.Mock()
-        self.account.transact(positive_transaction)
-        self.account.transact(negative_transaction)
+        self.account.transact(200)
+        self.account.transact(-200)
         self.assertEqual(len(self.account.transactions), 2)
+        self.assertIsInstance(self.account.transactions[0], mock.Mock)
+        self.assertIsInstance(self.account.transactions[1], mock.Mock)
     
     def test_print_zero_line_statement(self):
         """
         If transactions is empty print only account history headers
         date       || credit  || debit  || balance
         """
-        account = Account(0)
-        self.assertEqual(account.print_statement(), "date       || credit  || debit  || balance")
+        self.assertEqual(self.account.print_statement(), "date       || credit  || debit  || balance")
     
     def test_print_one_line_statement(self):
         """
@@ -48,5 +50,4 @@ class TestAccount(TestCase):
         self.assertEqual(self.account.print_statement(), statement)
 
     def test_returns_balance(self):
-        account = Account(0)
-        self.assertEqual(account.current_balance(), 0)
+        self.assertEqual(self.account.current_balance(), 0)
