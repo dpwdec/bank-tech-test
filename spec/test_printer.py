@@ -14,7 +14,7 @@ class TestPrinter(TestCase):
         date       || credit  || debit  || balance
         """
         printer = Printer()
-        self.assertEqual(printer.print_statement([]), "date       || credit  || debit  || balance")
+        self.assertEqual(printer.print_statement([]), "date       || credit  || debit   || balance")
     
     # def test_print_one_line_statement(self):
     #     """
