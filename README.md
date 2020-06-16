@@ -1,11 +1,15 @@
+# Bank Tech Test
+
+Account statement printing application that tracks transactions and outputs a statement showing balance and transaction history.
 
 ## How to use
+Via your machine's `CLI` in the interactive `Python3` REPL:
 ```
 >>> from src.account import Account
 >>> from src.printer import Printer
 >>> from src.transaction import Transaction
->>> p = Printer()
->>> acc = Account(0, Transaction, p)
+>>> printer = Printer()
+>>> acc = Account(0, Transaction, printer)
 >>> acc.transact(200)
 >>> acc.transact(50)
 >>> acc.print_statement()
@@ -14,8 +18,42 @@ date       || credit  || debit   || balance
 16/06/2020 ||         || 50.00   || 200.00 
 ```
 
+## Approach
+
+Account statement printing is achieved using three objects:
+
+- an `Account` object which tracks the a list of the users transactions.
+- a `Transactions` object which is stored inside the `Account` object and tracks information about individual transactions.
+- a `Printer` object as utility dependency of the `Account` object which accepts an array of transactions and prints a formatted statement using them.
+
+Below is the object domain model for the three objects:
+
+| Object | Message |
+| --- | --- |
+| Account | #transactions |
+| | #transact(amount) |
+| | #print_statement |
+
+| Object | Message |
+| --- | --- |
+| Transaction | #value |
+| | #date |
+| | #is_debit |
+| | #get_formatted_date |
+
+| Object | Message |
+| --- | --- |
+| Printer | #print_statement |
+
+I explored using separate `withdraw` and `deposit` methods but settled on using a single `transact` method on the `Account` object as it was clearer and cut down on repeated code. 
+
+Furthermore, I also went back and forth on whether to directly submit a new transaction object to the `Account` object's `transact` method, but decided in the end that it was more user friendly to be able to simply specify the amount of a transaction that took place and then dependency inject the `Transaction` class into the `Account` object where it could then be used to dynamically created new instances of `Transaction` when required.
+
 ## Acceptance criteria
 
+- User can deposit money
+- User can withdraw money
+- User can print a statement:
 ```
 date       || credit  || debit   || balance
 14/01/2012 ||         || 500.00  || 2500.00
@@ -23,35 +61,30 @@ date       || credit  || debit   || balance
 10/01/2012 || 1000.00 ||         || 1000.00
 ```
 
-## Interaction
+## User Stories
+```
+AS A conscientious saver
+SO THAT I can save for the future
+I NEED to be able deposit funds into my account
+```
 
-How should we model the clients interaction with the `Account` object when making deposits and withdrawals?
-- just directly pass in the amount to deposit:
-  `account_object.deposit(200)`
-- pass in a `Transaction` type object that records the time of the deposit or withdrawal:
-  ```
-  transaction_object = Transactio(Date, 200)
-  account_object.transaction(transaction_object)
-  ```
+```
+AS A reckless spender
+SO THAT I can take buy the things I want
+I NEED to be able to withdraw funds from my account
+```
 
-## Objects
+```
+AS A careful money manager
+SO THAT I know what's going on with my account
+I NEED to able to see a printed account statement
+```
 
-| Object | Message |
-| --- | --- |
-| Account | #transactions |
-| | #transaction(amount) |
-| | #current_balance |
-| | #print_statement |
+## Tests
 
-| Object | Message |
-| --- | --- |
-| Transaction | #type |
-| | #amount |
-| | #date |
+To run all tests:
+```
+python3 -m unittest
+```
 
-## Mocking
-
-Should I be mocking the `date` part of my transaction
-
-At the moment my `account` object prints a statement and when I say
-`transact` it takes a transaction and creates a new transaction object with the time with `date.now`
+Tests are structured into two modules `spec` for unit tests and `integration` for feature tests.
