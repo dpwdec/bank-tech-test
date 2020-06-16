@@ -1,4 +1,18 @@
 
+## How to use
+```
+>>> from src.account import Account
+>>> from src.printer import Printer
+>>> from src.transaction import Transaction
+>>> p = Printer()
+>>> acc = Account(0, Transaction, p)
+>>> acc.transact(200)
+>>> acc.transact(50)
+>>> acc.print_statement()
+date       || credit  || debit   || balance
+16/06/2020 ||         || 200.00  || 0.00   
+16/06/2020 ||         || 50.00   || 200.00 
+```
 
 ## Acceptance criteria
 

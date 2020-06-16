@@ -14,21 +14,13 @@ class Printer():
         return f"\n{transaction.get_formatted_date()} || "
 
     def _format_debit_credit_cols(self, transaction):
-        input_cols = ""
+        value_col = "%.2f" % abs(transaction.value)
+        padding = " " * (8 - len(value_col))
+
         if(transaction.is_debit()):
-            credit_col = "        || "
-            float_value = "%.2f" % transaction.value
-            padding = " " * (8 - len(float_value))
-            debit_col = f"{float_value}{padding}"
-            input_cols = credit_col + debit_col + "|| "
+            return "        || " + value_col + padding + "|| "
         else:
-            debit_col = "        || "
-            float_value = "%.2f" % abs(transaction.value)
-            padding = " " * (8 - len(float_value))
-            credit_col = f"{float_value}{padding}"
-            input_cols = credit_col + "|| " + debit_col
-        
-        return input_cols
+            return value_col + padding + "|| " + "        || "
     
     def _format_balance_col(self, balance):
         balance_str = "%.2f" % balance
