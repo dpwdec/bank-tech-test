@@ -34,6 +34,9 @@ class TestAccount(TestCase):
     def test_returns_balance(self):
         self.assertEqual(self.account.current_balance(), 0)
     
-    def test_print_statement(self):
+    def test_printer_print_statement_called(self):
         self.account.print_statement()
         self.printer_mock.print_statement.assert_called_once_with()
+
+    def test_print_statement_return(self):
+        self.assertIsInstance(self.account.print_statement(), str)
