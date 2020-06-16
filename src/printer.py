@@ -10,10 +10,9 @@ class Printer():
             balance_value = "%.2f" % balance
             padding = " " * (7 - len(balance_value))
             balance_col = balance_value + padding
-            input_cols = self._format_debit_credit_cols(transaction)
             transaction_row = ""
             
-            transaction_row = date_col + input_cols + balance_col
+            transaction_row = date_col + self._format_debit_credit_cols(transaction) + balance_col
             statement += transaction_row
         
             balance += transaction.value
