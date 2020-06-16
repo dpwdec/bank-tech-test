@@ -5,18 +5,14 @@ class Printer():
         statement = "date       || credit  || debit   || balance"
 
         for transaction in transactions:
-
-            balance_value = "%.2f" % balance
-            padding = " " * (7 - len(balance_value))
-            balance_col = balance_value + padding
-            transaction_row = ""
-            
-            transaction_row = self._format_date_col(transaction) + self._format_debit_credit_cols(transaction) + balance_col
+            transaction_row = self._format_date_col(transaction) + self._format_debit_credit_cols(transaction) + self._format_balance_col(balance)
             statement += transaction_row
-        
             balance += transaction.value
 
         return statement
+    
+    def _format_date_col(self, transaction):
+        return f"\n{transaction.get_formatted_date()} || "
 
     def _format_debit_credit_cols(self, transaction):
         input_cols = ""
@@ -35,5 +31,8 @@ class Printer():
         
         return input_cols
     
-    def _format_date_col(self, transaction):
-        return f"\n{transaction.get_formatted_date()} || "
+    def _format_balance_col(self, balance):
+        balance_str = "%.2f" % balance
+        return "%.2f" % balance + (" " * (7 - len(balance_str)))
+    
+
