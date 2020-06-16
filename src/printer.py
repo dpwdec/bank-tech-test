@@ -5,8 +5,7 @@ class Printer():
         statement = "date       || credit  || debit   || balance"
 
         for transaction in transactions:
-            transaction_row = self._format_date_col(transaction) + self._format_debit_credit_cols(transaction) + self._format_balance_col(balance)
-            statement += transaction_row
+            statement += (self._format_date_col(transaction) + self._format_debit_credit_cols(transaction) + self._format_balance_col(balance))
             balance += transaction.value
 
         return statement
