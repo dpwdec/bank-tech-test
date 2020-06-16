@@ -30,3 +30,22 @@ class TestPrinter(TestCase):
         positive_transaction.value = 200
         printer = Printer()
         self.assertEqual(printer.print_statement([positive_transaction]), statement)
+    
+    def test_print_multi_line_statement(self):
+        """
+        If transactions is two transactions for 200 and -50:
+        date       || credit  || debit   || balance
+        14/01/2012 ||         || 200.00  || 0.00   
+        20/02/2015 || 50.00   ||         || 200.00 
+        """
+        statement = "date       || credit  || debit   || balance\n14/01/2012 ||         || 200.00  || 0.00   \n20/02/2015 || 50.00   ||         || 200.00 "
+        positive_transaction = mock.Mock()
+        positive_transaction.get_formatted_date.return_value = "14/01/2012"
+        positive_transaction.is_debit.return_value = True
+        positive_transaction.value = 200
+        negative_transaction = mock.Mock()
+        negative_transaction.get_formatted_date.return_value = "20/02/2015"
+        negative_transaction.is_debit.return_value = False
+        negative_transaction.value = -50
+        printer = Printer()
+        self.assertEqual(printer.print_statement([positive_transaction, negative_transaction]), statement)
