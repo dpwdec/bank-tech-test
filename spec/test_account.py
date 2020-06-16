@@ -3,17 +3,31 @@ from unittest import mock
 from src.account import Account
 
 class TestAccount(TestCase):
-
+    
     def setUp(self):
+        # set up mock Transaction class and object
         transaction_object = mock.Mock()
         self.TransactionClass = mock.Mock()
         self.TransactionClass.return_value = transaction_object
+        # setup mock printer
         self.printer_mock = mock.Mock()
         self.printer_mock.print_statement.return_value = ""
+        # instantiate account test object
         self.account = Account(self.TransactionClass, self.printer_mock)
 
-    def _has_list_of_transactions(self):
+class TestTransactions(TestAccount):
+
+    def test_responds_to_transactions(self):
+        self.assertTrue(hasattr(self.account, 'transactions'))
+
+    def test_has_empty_list_of_transactions(self):
+        """
+        Account is initialized with a list an empty
+        transactions list.
+        """
         self.assertEqual(self.account.transactions, [])
+
+class TestAccountTests(TestAccount):
 
     def test_execute_single_transaction(self):
         self.account.transact(200)
