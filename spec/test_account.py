@@ -57,8 +57,7 @@ class TestTransact(TestAccount):
         self.assertIsInstance(self.account.transactions[0], mock.Mock)
         self.assertIsInstance(self.account.transactions[1], mock.Mock)
 
-class TestAccountTests(TestAccount):
-    
+class TestPrintStatement(TestAccount):
     
     def test_printer_print_statement_called(self):
         self.account.print_statement()
