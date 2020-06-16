@@ -27,12 +27,18 @@ class TestTransactions(TestAccount):
         """
         self.assertEqual(self.account.transactions, [])
 
-class TestAccountTests(TestAccount):
+class TestTransact(TestAccount):
 
-    def test_execute_single_transaction(self):
+    def test_single_transact_(self):
+        """
+        Calling transact pushes a new instance of a transaction
+        object onto the Account object's transaction array
+        """
         self.account.transact(200)
         self.assertEqual(len(self.account.transactions), 1)
         self.assertIsInstance(self.account.transactions[0], mock.Mock)
+
+class TestAccountTests(TestAccount):
     
     def test_execute_multiple_transactions(self):
         self.account.transact(200)
