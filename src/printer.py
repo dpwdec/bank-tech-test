@@ -17,10 +17,8 @@ class Printer():
         value_col = "%.2f" % abs(transaction.value)
         padding = " " * (8 - len(value_col))
 
-        if(transaction.is_debit()):
-            return "        || " + value_col + padding + "|| "
-        else:
-            return value_col + padding + "|| " + "        || "
+        if transaction.is_debit(): return "        || " + value_col + padding + "|| "
+        return value_col + padding + "|| " + "        || "
     
     def _format_balance_col(self, balance):
         balance_str = "%.2f" % balance
