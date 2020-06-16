@@ -4,28 +4,27 @@ from src.transaction import Transaction
 
 class TestTransaction(TestCase):
     
+    def setUp(self):
+        self.date_object = mock.Mock()
+        self.transaction = Transaction(200, self.date_object)
+    
     def test_records_transaction_value(self):
-        date_object = mock.Mock()
-        transaction = Transaction(200, date_object)
-        self.assertEqual(transaction.value, 200)
+        self.assertEqual(self.transaction.value, 200)
     
     def test_records_transaction_date(self):
-        date_object = mock.Mock()
-        transaction = Transaction(200, date_object)
-        self.assertEqual(transaction.date, date_object)
+        self.assertEqual(self.transaction.date, self.date_object)
 
     def test_get_formatted_date(self):
-        date_object = mock.Mock()
-        transaction = Transaction(200, date_object)
-        transaction.get_formatted_date()
-        transaction.date.strftime.assert_called_with("%d/%m/%Y")
+        """
+        Transaction class date_object's strftime method is called
+        when formatting date.
+        """
+        self.transaction.get_formatted_date()
+        self.transaction.date.strftime.assert_called_with("%d/%m/%Y")
     
     def test_is_debit_true(self):
-        date_object = mock.Mock()
-        transaction = Transaction(200, date_object)
-        self.assertTrue(transaction.is_debit())
+        self.assertTrue(self.transaction.is_debit())
     
     def test_is_debite_false(self):
-        date_object = mock.Mock()
-        transaction = Transaction(-200, date_object)
-        self.assertFalse(transaction.is_debit())
+        self.transaction = Transaction(-200, self.date_object)
+        self.assertFalse(self.transaction.is_debit())
