@@ -57,6 +57,16 @@ class TestTransact(TestAccount):
         self.assertIsInstance(self.account.transactions[0], mock.Mock)
         self.assertIsInstance(self.account.transactions[1], mock.Mock)
 
+class TestDeposit(TestAccount):
+    
+    def test_deposit_calls_transaction_class(self):
+        """
+        Calling deposit calls Transaction to create a
+        new instance of Transaction
+        """
+        self.account.deposit(200)
+        self.TransactionClass.assert_called_once_with(200)
+
 class TestPrintStatement(TestAccount):
     
     def test_printer_print_statement_called(self):

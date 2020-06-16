@@ -4,6 +4,9 @@ class Account():
         self.transactions = []
         self.TransactionClass = TransactionClass
         self.printer = printer
+
+    def deposit(self, amount):
+        self.transact(amount)
     
     def transact(self, amount):
         transaction = self.TransactionClass(amount)
