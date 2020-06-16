@@ -8,7 +8,9 @@ class TestAccount(TestCase):
         transaction_object = mock.Mock()
         self.TransactionClass = mock.Mock()
         self.TransactionClass.return_value = transaction_object
-        self.account = Account(0, self.TransactionClass)
+        self.printer_mock = mock.Mock()
+        self.printer_mock.print_statement.return_value = ""
+        self.account = Account(0, self.TransactionClass, self.printer_mock)
 
     def _has_list_of_transactions(self):
         self.assertEqual(self.account.transactions, [])
@@ -31,3 +33,7 @@ class TestAccount(TestCase):
 
     def test_returns_balance(self):
         self.assertEqual(self.account.current_balance(), 0)
+    
+    def test_print_statement(self):
+        self.account.print_statement()
+        self.printer_mock.print_statement.assert_called_once_with()
