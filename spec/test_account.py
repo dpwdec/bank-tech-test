@@ -37,7 +37,7 @@ class TestTransact(TestAccount):
         self.account.transact(200)
         self.TransactionClass.assert_called_once_with(200)
 
-    def test_single_transact_(self):
+    def test_single_transact(self):
         """
         Calling transact pushes a new instance of a transaction
         object onto the Account object's transaction array
@@ -46,16 +46,19 @@ class TestTransact(TestAccount):
         self.assertEqual(len(self.account.transactions), 1)
         self.assertIsInstance(self.account.transactions[0], mock.Mock)
 
-    
-
-class TestAccountTests(TestAccount):
-    
-    def test_execute_multiple_transactions(self):
+    def test_multiple_transact(self):
+        """
+        Calling transact multiple times pushes a new instances 
+        of the transaction object onto the Account object's transaction array
+        """
         self.account.transact(200)
         self.account.transact(-200)
         self.assertEqual(len(self.account.transactions), 2)
         self.assertIsInstance(self.account.transactions[0], mock.Mock)
         self.assertIsInstance(self.account.transactions[1], mock.Mock)
+
+class TestAccountTests(TestAccount):
+    
     
     def test_printer_print_statement_called(self):
         self.account.print_statement()
