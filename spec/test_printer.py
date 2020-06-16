@@ -2,7 +2,7 @@ from unittest import TestCase
 from unittest import mock
 from src.printer import Printer
 
-class TestIntegerPrinter(TestCase):
+class TestPrinter(TestCase):
 
     def setUp(self):
         self.printer = Printer()
@@ -17,9 +17,11 @@ class TestIntegerPrinter(TestCase):
         self.negative_transaction.is_debit.return_value = False
         self.negative_transaction.value = -50
 
-    def test_has_print_statement_method(self):
+    def test_respond_to_print_statement_method(self):
         printer = Printer()
         self.assertTrue(hasattr(printer, 'print_statement'))
+
+class TestIntegerPrinter(TestPrinter):
 
     def _print_zero_line_statement(self):
         """
