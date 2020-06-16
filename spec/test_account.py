@@ -6,14 +6,12 @@ class TestAccount(TestCase):
 
     def setUp(self):
         transaction_object = mock.Mock()
-        TransactionClass = mock.Mock()
-        TransactionClass.return_value = transaction_object
-        self.account = Account(0, TransactionClass)
+        self.TransactionClass = mock.Mock()
+        self.TransactionClass.return_value = transaction_object
+        self.account = Account(0, self.TransactionClass)
 
     def _has_list_of_transactions(self):
-        pass
-        #account = Account(0)
-        #self.assertEqual(account.transactions, [])
+        self.assertEqual(self.account.transactions, [])
 
     def test_execute_single_transaction(self):
         self.account.transact(200)
@@ -26,6 +24,10 @@ class TestAccount(TestCase):
         self.assertEqual(len(self.account.transactions), 2)
         self.assertIsInstance(self.account.transactions[0], mock.Mock)
         self.assertIsInstance(self.account.transactions[1], mock.Mock)
+    
+    def test_transact_calls_transaction_class(self):
+        self.account.transact(200)
+        self.TransactionClass.assert_called_once_with(200)
     
     def test_print_zero_line_statement(self):
         """
