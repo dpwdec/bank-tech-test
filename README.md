@@ -1,6 +1,16 @@
 # Bank Tech Test
 
+[![Build Status](https://travis-ci.com/dpwdec/bank-tech-test.svg?branch=master)](https://travis-ci.com/github/dpwdec/bank-tech-test)
+
 Account statement printing application that tracks transactions and outputs a statement showing balance and transaction history.
+
+## Installation
+
+1. Clone this repo
+2. Install `pipenv` with `brew install pipenv`
+3. Nagivate to the project repo
+4. Run `pipenv install` to install project dependencies.
+5. See the `How to use` section on how to run the code as an application.
 
 ## How to use
 Via your machine's `CLI` in the interactive `Python3` REPL:
@@ -9,14 +19,29 @@ Via your machine's `CLI` in the interactive `Python3` REPL:
 >>> from src.printer import Printer
 >>> from src.transaction import Transaction
 >>> printer = Printer()
->>> acc = Account(0, Transaction, printer)
->>> acc.transact(200)
->>> acc.transact(50)
+>>> account = Account(0, Transaction, printer)
+>>> account.deposit(200)
+>>> account.deposit(50)
+>>> account.withdraw(100)
 >>> acc.print_statement()
 date       || credit  || debit   || balance
 16/06/2020 ||         || 200.00  || 0.00   
 16/06/2020 ||         || 50.00   || 200.00 
+16/06/2020 || 100.00  ||         || 250.00 
 ```
+## Tests
+
+To run all tests:
+```
+pipenv run test
+```
+
+To run only unit tests:
+```
+pipenv run test_unit
+```
+
+Tests are structured into two modules `spec` for unit tests and `integration` for feature tests.
 
 ## Approach
 
@@ -79,12 +104,3 @@ AS A careful money manager
 SO THAT I know what's going on with my account
 I NEED to able to see a printed account statement
 ```
-
-## Tests
-
-To run all tests:
-```
-python3 -m unittest
-```
-
-Tests are structured into two modules `spec` for unit tests and `integration` for feature tests.
