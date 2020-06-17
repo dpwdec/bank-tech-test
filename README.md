@@ -97,19 +97,20 @@ Below is the object domain model for the three objects:
 | Object | Message |
 | --- | --- |
 | Account | #transactions |
-| | #transact(amount) |
-| | #print_statement |
+| | #deposit(amount) |
+| | #withdraw(amount) |
+| | #print_statement() |
 
 | Object | Message |
 | --- | --- |
 | Transaction | #value |
 | | #date |
-| | #is_debit |
-| | #get_formatted_date |
+| | #is_debit() |
+| | #get_formatted_date() |
 
 | Object | Message |
 | --- | --- |
-| Printer | #print_statement |
+| Printer | #print_statement() |
 
 I explored using separate `withdraw` and `deposit` methods but settled on using a single `transact` method on the `Account` object as it was clearer and cut down on repeated code. 
 
