@@ -9,7 +9,8 @@ class Printer():
             balance += transaction.value
 
         return statement
-    
+
+    """ Private """
     def _format_date_col(self, transaction):
         return f"\n{transaction.get_formatted_date()} || "
 
