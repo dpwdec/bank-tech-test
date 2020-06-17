@@ -15,31 +15,6 @@ class TestAccount(TestCase):
         # instantiate account test object
         self.account = Account(self.TransactionClass, self.printer_mock)
 
-class TestTransactions(TestAccount):
-
-    def test_responds_to_transactions(self):
-        self.assertTrue(hasattr(self.account, 'transactions'))
-
-    def test_has_empty_list_of_transactions(self):
-        """
-        Account is initialized with a list an empty
-        transactions list.
-        """
-        self.assertEqual(self.account.transactions, [])
-
-class TestTransact(TestAccount):
-
-    def test_multiple_transact(self):
-        """
-        Calling transact multiple times pushes a new instances 
-        of the transaction object onto the Account object's transaction array
-        """
-        self.account.transact(200)
-        self.account.transact(-200)
-        self.assertEqual(len(self.account.transactions), 2)
-        self.assertIsInstance(self.account.transactions[0], mock.Mock)
-        self.assertIsInstance(self.account.transactions[1], mock.Mock)
-
 class TestDeposit(TestAccount):
     
     def test_deposit_calls_transaction_class(self):
@@ -69,6 +44,28 @@ class TestWithdraw(TestAccount):
         """
         self.account.withdraw(200)
         self.TransactionClass.assert_called_once_with(-200)
+
+    def test_withdraw_adds_to_transactions(self):
+        """
+        Calling withdraw pushes a new instance of a transaction
+        object onto the Account object's transaction array
+        """
+        self.account.withdraw(200)
+        self.assertEqual(len(self.account.transactions), 1)
+        self.assertIsInstance(self.account.transactions[0], mock.Mock)
+
+class TestTransactions(TestAccount):
+
+    def test_multiple_transactions(self):
+        """
+        Calling transact multiple times pushes a new instances 
+        of the transaction object onto the Account object's transaction array
+        """
+        self.account.deposit(200)
+        self.account.withdraw(200)
+        self.assertEqual(len(self.account.transactions), 2)
+        self.assertIsInstance(self.account.transactions[0], mock.Mock)
+        self.assertIsInstance(self.account.transactions[1], mock.Mock)
 
 class TestPrintStatement(TestAccount):
     
