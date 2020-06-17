@@ -23,7 +23,7 @@ Via your machine's `CLI` in the interactive `Python3` REPL:
 >>> account.deposit(200)
 >>> account.deposit(50)
 >>> account.withdraw(100)
->>> acc.print_statement()
+>>> account.print_statement()
 date       || credit  || debit   || balance
 16/06/2020 ||         || 200.00  || 0.00   
 16/06/2020 ||         || 50.00   || 200.00 
