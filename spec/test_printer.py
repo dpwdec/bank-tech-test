@@ -8,12 +8,12 @@ class TestPrinter(TestCase):
         self.printer = Printer()
         # set up positive transaction mock
         self.positive_transaction = mock.Mock()
-        self.positive_transaction.get_formatted_date.return_value = "14/01/2012"
+        self.positive_transaction.date.strftime.return_value = "14/01/2012"
         self.positive_transaction.is_debit.return_value = True
         self.positive_transaction.value = 200
         # set up negative transaction mock
         self.negative_transaction = mock.Mock()
-        self.negative_transaction.get_formatted_date.return_value = "20/02/2015"
+        self.negative_transaction.date.strftime.return_value = "20/02/2015"
         self.negative_transaction.is_debit.return_value = False
         self.negative_transaction.value = -50
 
@@ -66,12 +66,12 @@ class TestFloatPrinter(TestCase):
         self.printer = Printer()
         # set up positive transaction mock
         self.positive_transaction = mock.Mock()
-        self.positive_transaction.get_formatted_date.return_value = "14/01/2012"
+        self.positive_transaction.date.strftime.return_value = "14/01/2012"
         self.positive_transaction.is_debit.return_value = True
         self.positive_transaction.value = 200.20
         # set up negative transaction mock
         self.negative_transaction = mock.Mock()
-        self.negative_transaction.get_formatted_date.return_value = "20/02/2015"
+        self.negative_transaction.date.strftime.return_value = "20/02/2015"
         self.negative_transaction.is_debit.return_value = False
         self.negative_transaction.value = -50.55
 

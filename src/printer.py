@@ -12,7 +12,10 @@ class Printer():
 
     """ Private """
     def _format_date_col(self, transaction):
-        return f"\n{transaction.get_formatted_date()} || "
+        return f"\n{self._format_date(transaction)} || "
+    
+    def _format_date(self, transaction):
+        return transaction.date.strftime("%d/%m/%Y")
 
     def _format_debit_credit_cols(self, transaction):
         value_col = "%.2f" % abs(transaction.value)

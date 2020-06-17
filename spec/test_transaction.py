@@ -26,14 +26,3 @@ class TestTransactionType(TestTransaction):
     def test_is_debite_false(self):
         self.transaction = Transaction(-200, self.date_object)
         self.assertFalse(self.transaction.is_debit())
-
-class TestTransactionFormat(TestTransaction):
-
-    def test_get_formatted_date(self):
-        """
-        Transaction class date_object's strftime method is called
-        when formatting date.
-        """
-        self.transaction.get_formatted_date()
-        self.transaction.date.strftime.assert_called_with("%d/%m/%Y")
-        
