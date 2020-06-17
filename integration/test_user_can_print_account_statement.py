@@ -20,11 +20,11 @@ class TestAccountIntegration(TestCase):
         printer = Printer()
         account = Account(Transaction, printer)
 
-        account.transact(200)
-        account.transact(-50.55)
-        account.transact(3000)
-        account.transact(-3.5)
-        account.transact(-10.20)
+        account.deposit(200)
+        account.withdraw(50.55)
+        account.deposit(3000)
+        account.withdraw(3.5)
+        account.withdraw(10.20)
 
         statement = ("date       || credit  || debit   || balance"
         "\n" + datetime.now().strftime("%d/%m/%Y") + " ||         || 200.00  || 0.00   "

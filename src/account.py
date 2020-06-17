@@ -6,15 +6,16 @@ class Account():
         self.printer = printer
 
     def deposit(self, amount):
-        self.transact(abs(amount))
+        self._transact(abs(amount))
 
     def withdraw(self, amount):
-        self.transact(-abs(amount))
-    
-    def transact(self, amount):
-        transaction = self.TransactionClass(amount)
-        self.transactions.append(transaction)
+        self._transact(-abs(amount))
     
     def print_statement(self):
         statement = self.printer.print_statement(self.transactions)
         return statement
+
+    """ Private """
+    def _transact(self, amount):
+        transaction = self.TransactionClass(amount)
+        self.transactions.append(transaction)
