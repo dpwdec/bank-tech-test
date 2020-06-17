@@ -1,6 +1,6 @@
 # Bank Tech Test
 
-[![Build Status](https://travis-ci.com/dpwdec/bank-tech-test.svg?branch=master)](https://travis-ci.com/github/dpwdec/bank-tech-test)
+[![Build Status](https://travis-ci.com/dpwdec/bank-tech-test.svg?branch=master)](https://travis-ci.com/github/dpwdec/bank-tech-test) [![Coverage Status](https://coveralls.io/repos/github/dpwdec/bank-tech-test/badge.svg?branch=master)](https://coveralls.io/github/dpwdec/bank-tech-test?branch=master)
 
 Account statement printing application that tracks transactions and outputs a statement showing balance and transaction history.
 
