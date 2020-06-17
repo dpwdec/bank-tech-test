@@ -41,7 +41,48 @@ To run only unit tests:
 pipenv run test_unit
 ```
 
+To run only integrations tests:
+```
+pipenv run test_integration
+```
+
+To run tests with coverage report bundled:
+```
+pipenv run test_coverage
+```
+
 Tests are structured into two modules `spec` for unit tests and `integration` for feature tests.
+
+## Specification / Acceptance criteria
+
+- User can deposit money
+- User can withdraw money
+- User can print a statement:
+```
+date       || credit  || debit   || balance
+14/01/2012 ||         || 500.00  || 2500.00
+13/01/2012 || 2000.00 ||         || 3000.00
+10/01/2012 || 1000.00 ||         || 1000.00
+```
+
+## User Stories
+```
+AS A conscientious saver
+SO THAT I can save for the future
+I NEED to be able deposit funds into my account
+```
+
+```
+AS A reckless spender
+SO THAT I can take buy the things I want
+I NEED to be able to withdraw funds from my account
+```
+
+```
+AS A careful money manager
+SO THAT I know what's going on with my account
+I NEED to able to see a printed account statement
+```
 
 ## Approach
 
@@ -72,35 +113,6 @@ Below is the object domain model for the three objects:
 
 I explored using separate `withdraw` and `deposit` methods but settled on using a single `transact` method on the `Account` object as it was clearer and cut down on repeated code. 
 
-Furthermore, I also went back and forth on whether to directly submit a new transaction object to the `Account` object's `transact` method, but decided in the end that it was more user friendly to be able to simply specify the amount of a transaction that took place and then dependency inject the `Transaction` class into the `Account` object where it could then be used to dynamically created new instances of `Transaction` when required.
+Furthermore, I also went back and forth on whether to directly submit a new transaction object to the `Account` object's `transact` method. Initially I decided that it was more user friendly to be able to simply specify the amount of a transaction that took place and then dependency inject the `Transaction` class into the `Account` object where it could then be used to dynamically created new instances of `Transaction` when required. 
 
-## Acceptance criteria
-
-- User can deposit money
-- User can withdraw money
-- User can print a statement:
-```
-date       || credit  || debit   || balance
-14/01/2012 ||         || 500.00  || 2500.00
-13/01/2012 || 2000.00 ||         || 3000.00
-10/01/2012 || 1000.00 ||         || 1000.00
-```
-
-## User Stories
-```
-AS A conscientious saver
-SO THAT I can save for the future
-I NEED to be able deposit funds into my account
-```
-
-```
-AS A reckless spender
-SO THAT I can take buy the things I want
-I NEED to be able to withdraw funds from my account
-```
-
-```
-AS A careful money manager
-SO THAT I know what's going on with my account
-I NEED to able to see a printed account statement
-```
+While this worked ok, it didn't fit well with the user stories being able to `withdraw` and `deposit` so I refactored to add this methods and changed the `transact` method to be private instead calling it via the `withdraw` and `deposit` methods to keep the code DRY and still present a nice interface for users.
