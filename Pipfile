@@ -9,3 +9,8 @@ verify_ssl = true
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+test = "python3 -m unittest"
+test_unit = "python3 -m unittest discover spec"
+test_integration = "python3 -m unittest discover integration"
