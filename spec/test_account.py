@@ -67,6 +67,16 @@ class TestDeposit(TestAccount):
         self.account.deposit(200)
         self.TransactionClass.assert_called_once_with(200)
 
+class TestWithdraw(TestAccount):
+
+    def test_withdraw_calls_transaction_class(self):
+        """
+        Calling withdraw calls Transaction to create a
+        new instance of Transaction
+        """
+        self.account.withdraw(200)
+        self.TransactionClass.assert_called_once_with(200)
+
 class TestPrintStatement(TestAccount):
     
     def test_printer_print_statement_called(self):

@@ -7,6 +7,9 @@ class Account():
 
     def deposit(self, amount):
         self.transact(amount)
+
+    def withdraw(self, amount):
+        self.transact(amount)
     
     def transact(self, amount):
         transaction = self.TransactionClass(amount)
