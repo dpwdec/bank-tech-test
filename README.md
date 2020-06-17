@@ -89,7 +89,7 @@ I NEED to able to see a printed account statement
 Account statement printing is achieved using three objects:
 
 - an `Account` object which tracks the a list of the users transactions.
-- a `Transactions` object which is stored inside the `Account` object and tracks information about individual transactions.
+- a `Transaction` object which is stored inside the `Account` object and tracks information about individual transactions.
 - a `Printer` object as utility dependency of the `Account` object which accepts an array of transactions and prints a formatted statement using them.
 
 Below is the object domain model for the three objects:
