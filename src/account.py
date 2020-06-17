@@ -6,7 +6,7 @@ class Account():
         self.printer = printer
 
     def deposit(self, amount):
-        self.transact(amount)
+        self.transact(abs(amount))
 
     def withdraw(self, amount):
         self.transact(-abs(amount))

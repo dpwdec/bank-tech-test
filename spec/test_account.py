@@ -25,6 +25,14 @@ class TestDeposit(TestAccount):
         self.account.deposit(200)
         self.TransactionClass.assert_called_once_with(200)
 
+    def test_deposit_converts_negative_amounts(self):
+        """
+        Calling deposit with a negative amount
+        converts the amount to a positive amount
+        """
+        self.account.deposit(-200)
+        self.TransactionClass.assert_called_once_with(200)
+
     def test_deposit_adds_to_transactions(self):
         """
         Calling deposit pushes a new instance of a transaction
