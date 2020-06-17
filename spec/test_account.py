@@ -29,23 +29,6 @@ class TestTransactions(TestAccount):
 
 class TestTransact(TestAccount):
 
-    def test_transact_calls_transaction_class(self):
-        """
-        Calling transact calls Transaction to create a
-        new instance of Transaction
-        """
-        self.account.transact(200)
-        self.TransactionClass.assert_called_once_with(200)
-
-    def test_single_transact(self):
-        """
-        Calling transact pushes a new instance of a transaction
-        object onto the Account object's transaction array
-        """
-        self.account.transact(200)
-        self.assertEqual(len(self.account.transactions), 1)
-        self.assertIsInstance(self.account.transactions[0], mock.Mock)
-
     def test_multiple_transact(self):
         """
         Calling transact multiple times pushes a new instances 
@@ -67,15 +50,25 @@ class TestDeposit(TestAccount):
         self.account.deposit(200)
         self.TransactionClass.assert_called_once_with(200)
 
+    def test_deposit_adds_to_transactions(self):
+        """
+        Calling deposit pushes a new instance of a transaction
+        object onto the Account object's transaction array
+        """
+        self.account.deposit(200)
+        self.assertEqual(len(self.account.transactions), 1)
+        self.assertIsInstance(self.account.transactions[0], mock.Mock)
+
+
 class TestWithdraw(TestAccount):
 
     def test_withdraw_calls_transaction_class(self):
         """
         Calling withdraw calls Transaction to create a
-        new instance of Transaction
+        new instance of Transaction with negative amount
         """
         self.account.withdraw(200)
-        self.TransactionClass.assert_called_once_with(200)
+        self.TransactionClass.assert_called_once_with(-200)
 
 class TestPrintStatement(TestAccount):
     

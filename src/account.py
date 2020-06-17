@@ -9,7 +9,7 @@ class Account():
         self.transact(amount)
 
     def withdraw(self, amount):
-        self.transact(amount)
+        self.transact(-abs(amount))
     
     def transact(self, amount):
         transaction = self.TransactionClass(amount)
