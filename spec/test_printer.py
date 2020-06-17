@@ -23,7 +23,7 @@ class TestPrinter(TestCase):
 
 class TestIntegerPrinter(TestPrinter):
 
-    def _print_zero_line_statement(self):
+    def test_print_zero_line_statement(self):
         """
         If print statement is pass an empty array 
         it will print only account headers:
